@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-
         });
 
     }
@@ -255,24 +254,27 @@ public class MainActivity extends AppCompatActivity
                 String Ano = etAno.getText().toString();
                 String Estrela = "" + (int) rbEstrela.getRating();
 
+                if(Artista.equals("") || Album.equals("") || Ano.equals("")) {
+                    Toast.makeText(MainActivity.this, "Inserir informações", Toast.LENGTH_SHORT).show();
 
-                String musicas = Artista + " | " + Album + " | " + Ano + " | " + Estrela + " Estrelas";
+                } else{
+                    String musicas = Artista + " | " + Album + " | " + Ano + " | " + Estrela + " Estrelas";
 
-                albuns.add(musicas);
+                    albuns.add(musicas);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns);
 
-                ListView listView = (ListView) findViewById(R.id.listView_musicas);
-                listView.setAdapter(adapter);
+                    ListView listView = (ListView) findViewById(R.id.listView_musicas);
+                    listView.setAdapter(adapter);
+                    Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
+                }
 
-
-                Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
-                Toast.makeText(MainActivity.this, "Não Adicionado Álbumn!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Não Adicionado Álbum!", Toast.LENGTH_SHORT).show();
             }
         });
 
