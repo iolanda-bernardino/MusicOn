@@ -2,6 +2,7 @@ package com.example.leona.musicon;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,30 +12,40 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity
 {
-    private ArrayList<String> albuns2;
+    private ArrayList<String> albuns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        albuns2 = new ArrayList<String>();
+        SharedPreferences sp = getSharedPreferences("MusicOn", 0);
+        Set<String> AlbumSet = sp.getStringSet("MusicKey", new HashSet<String>());
 
-        albuns2.add("ACDC | Highway To Hell | 1979 | 4 Estrelas ");
-        albuns2.add("Linkin Park | Meteora  | 2003 | 3 Estrelas ");
-        albuns2.add("Hardwell | United We Are | 2015 | 5 Estrelas ");
-        albuns2.add("David Fonseca | Futuro Eu | 2015 | 3 Estrelas ");
-        albuns2.add("Queen | Made in Heaven | 1995 | 5 Estrelas ");
+        albuns = new ArrayList<String>(AlbumSet);
+
+        /*albuns.add("ACDC | Highway To Hell | AA | 1979 | 4 Estrelas ");
+        albuns.add("Linkin Park | Meteora  | BB | 2003 | 3 Estrelas ");
+        albuns.add("Hardwell | United We Are | CC | 2015 | 5 Estrelas ");
+        albuns.add("David Fonseca | Futuro Eu | DD |2015 | 3 Estrelas ");
+        albuns.add("Queen | Made in Heaven | EE | 1995 | 5 Estrelas ");*/
 
         ListView listView = (ListView) findViewById(R.id.listView_musicas);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns2);
+
+        SimpleAdapter adapter = createSimpleAdapter(albuns);
+
         listView.setAdapter(adapter);
 
         Spinner s = (Spinner) findViewById(R.id.pesquisa);
@@ -67,9 +78,9 @@ public class MainActivity extends AppCompatActivity
                         String item = (String) listView.getItemAtPosition(position);
 
                         //apagar um item da posição escolhida
-                        albuns2.remove(position);
+                        albuns.remove(position);
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns2);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns);
                         listView.setAdapter(adapter);
 
                         // User clicked OK button
@@ -98,6 +109,44 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+
+        Toast.makeText(MainActivity.this, "A Guardar Dados", Toast.LENGTH_SHORT).show();
+        // Guardar os contactos para as shared preferences
+        SharedPreferences sp = getSharedPreferences("MusicOn", 0);
+        SharedPreferences.Editor editor = sp.edit();
+
+        HashSet AlbumSet = new HashSet(albuns);
+
+        editor.putStringSet("MusicKey", AlbumSet);
+        editor.commit();
+    }
+
+    private SimpleAdapter createSimpleAdapter(ArrayList<String> albuns)
+    {
+
+        List<HashMap<String, String>> simpleAdapterData = new ArrayList<HashMap<String, String>>();
+
+        for (String c : albuns)
+        {
+            HashMap<String, String> hashMap = new HashMap<>();
+            String[] split = c.split(" \\| ");
+            hashMap.put("Artista", split[0]);
+            hashMap.put("Álbum", split[1]);
+            hashMap.put("Editora", split[2]);
+            hashMap.put("Ano", split[3]);
+            hashMap.put("Classificação", split[4]);
+            simpleAdapterData.add(hashMap);
+        }
+        String[] from = {"Artista", "Álbum", "Editora", "Ano", "Classificação"};
+        int[] to = {R.id.textView_Album, R.id.textView_Artista, R.id.textView_Editora, R.id.textView_Ano, R.id.textView_Classificacao};
+        SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), simpleAdapterData, R.layout.listview_albuns, from, to);
+        return simpleAdapter;
+    }
+
     public void onClick_search(View view)
     {
         EditText et = (EditText) findViewById(R.id.texto);
@@ -108,7 +157,7 @@ public class MainActivity extends AppCompatActivity
 
         if(termo.equals(""))
         {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns2);
+            SimpleAdapter adapter = createSimpleAdapter(albuns);
             lv.setAdapter(adapter);
 
             Toast.makeText(MainActivity.this, "Mostrar todos os Álbuns.", Toast.LENGTH_SHORT).show();
@@ -121,9 +170,9 @@ public class MainActivity extends AppCompatActivity
 
 
             if (itemSeleccionado.equals("Todos")) {
-                for (int i = 0; i < albuns2.size(); i++)
+                for (int i = 0; i < albuns.size(); i++)
                 {
-                    String c = albuns2.get(i);
+                    String c = albuns.get(i);
 
                     boolean contem = c.contains(termo);
 
@@ -135,11 +184,11 @@ public class MainActivity extends AppCompatActivity
             }
             else if (itemSeleccionado.equals("Artista"))
             {
-                for (int i = 0; i < albuns2.size(); i++)
+                for (int i = 0; i < albuns.size(); i++)
                 {
-                    String c = albuns2.get(i);
+                    String c = albuns.get(i);
 
-                    String[] s = c.split("\\|\\|\\|\\|");
+                    String[] s = c.split("\\|");
                     String name = s[0];
 
                     boolean contem = name.contains(termo);
@@ -152,12 +201,29 @@ public class MainActivity extends AppCompatActivity
             }
             else if (itemSeleccionado.equals("Álbum"))
             {
-                for (int i = 0; i < albuns2.size(); i++)
+                for (int i = 0; i < albuns.size(); i++)
                 {
-                    String c = albuns2.get(i);
+                    String c = albuns.get(i);
 
-                    String[] s = c.split("\\|\\|\\|\\|");
+                    String[] s = c.split("\\|");
                     String number = s[1];
+
+                    boolean contem = number.contains(termo);
+
+                    if (contem)
+                    {
+                        resultados.add(c);
+                    }
+                }
+            }
+            else if (itemSeleccionado.equals("Editora"))
+            {
+                for (int i = 0; i < albuns.size(); i++)
+                {
+                    String c = albuns.get(i);
+
+                    String[] s = c.split("\\|");
+                    String number = s[2];
 
                     boolean contem = number.contains(termo);
 
@@ -169,12 +235,12 @@ public class MainActivity extends AppCompatActivity
             }
             else if (itemSeleccionado.equals("Ano"))
             {
-                for (int i = 0; i < albuns2.size(); i++)
+                for (int i = 0; i < albuns.size(); i++)
                 {
-                    String c = albuns2.get(i);
+                    String c = albuns.get(i);
 
-                    String[] s = c.split("\\|\\|\\|\\|");
-                    String number = s[2];
+                    String[] s = c.split("\\|");
+                    String number = s[3];
 
                     boolean contem = number.contains(termo);
 
@@ -186,12 +252,12 @@ public class MainActivity extends AppCompatActivity
             }
             else if (itemSeleccionado.equals("Classificação"))
             {
-                for (int i = 0; i < albuns2.size(); i++)
+                for (int i = 0; i < albuns.size(); i++)
                 {
-                    String c = albuns2.get(i);
+                    String c = albuns.get(i);
 
-                    String[] s = c.split("\\|\\|\\|\\|");
-                    String number = s[3];
+                    String[] s = c.split("\\|");
+                    String number = s[4];
 
                     boolean contem = number.contains(termo);
 
@@ -206,13 +272,13 @@ public class MainActivity extends AppCompatActivity
 
             if(vazia == false)
             {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, resultados);
+                SimpleAdapter adapter = createSimpleAdapter(resultados);
                 lv.setAdapter(adapter);
                 Toast.makeText(MainActivity.this, "Mostrar todas as informações.", Toast.LENGTH_SHORT).show();
             }
             else
             {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns2);
+                SimpleAdapter adapter = createSimpleAdapter(albuns);
                 lv.setAdapter(adapter);
 
                 Toast.makeText(MainActivity.this, "Resultados não encontrados. Mostrar tudo.", Toast.LENGTH_SHORT).show();
@@ -237,6 +303,7 @@ public class MainActivity extends AppCompatActivity
 
                 EditText etArtista = (EditText) al.findViewById(R.id.editText_Artista);
                 EditText etAlbum = (EditText) al.findViewById(R.id.editText_Album);
+                EditText etEditora = (EditText) al.findViewById(R.id.editText_Editora);
                 EditText etAno = (EditText) al.findViewById(R.id.editText_Ano);
                 RatingBar rbEstrela = (RatingBar) al.findViewById(R.id.ratingBar);
 
@@ -251,30 +318,28 @@ public class MainActivity extends AppCompatActivity
 
                 String Artista = etArtista.getText().toString();
                 String Album = etAlbum.getText().toString();
+                String Editora = etEditora.getText().toString();
                 String Ano = etAno.getText().toString();
                 String Estrela = "" + (int) rbEstrela.getRating();
 
-                if(Artista.equals("") || Album.equals("") || Ano.equals("")) {
-                    Toast.makeText(MainActivity.this, "Inserir informações", Toast.LENGTH_SHORT).show();
 
-                } else{
-                    String musicas = Artista + " | " + Album + " | " + Ano + " | " + Estrela + " Estrelas";
+                String musicas = Artista + " | " + Album + " | " + Editora + " | " + Ano + " | " + Estrela + " Estrelas";
 
-                    albuns2.add(musicas);
+                albuns.add(musicas);
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns2);
+                SimpleAdapter adapter = createSimpleAdapter(albuns);
 
-                    ListView listView = (ListView) findViewById(R.id.listView_musicas);
-                    listView.setAdapter(adapter);
-                    Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
-                }
+                ListView listView = (ListView) findViewById(R.id.listView_musicas);
+                listView.setAdapter(adapter);
 
+
+                Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
-                Toast.makeText(MainActivity.this, "Não Adicionado Álbum!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Não Adicionado Álbumn!", Toast.LENGTH_SHORT).show();
             }
         });
 
