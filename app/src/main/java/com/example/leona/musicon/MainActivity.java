@@ -18,23 +18,23 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
-    private ArrayList<String> albuns;
+    private ArrayList<String> albuns2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        albuns = new ArrayList<String>();
+        albuns2 = new ArrayList<String>();
 
-        albuns.add("ACDC | Highway To Hell | 1979 | 4 Estrelas ");
-        albuns.add("Linkin Park | Meteora  | 2003 | 3 Estrelas ");
-        albuns.add("Hardwell | United We Are | 2015 | 5 Estrelas ");
-        albuns.add("David Fonseca | Futuro Eu | 2015 | 3 Estrelas ");
-        albuns.add("Queen | Made in Heaven | 1995 | 5 Estrelas ");
+        albuns2.add("ACDC | Highway To Hell | 1979 | 4 Estrelas ");
+        albuns2.add("Linkin Park | Meteora  | 2003 | 3 Estrelas ");
+        albuns2.add("Hardwell | United We Are | 2015 | 5 Estrelas ");
+        albuns2.add("David Fonseca | Futuro Eu | 2015 | 3 Estrelas ");
+        albuns2.add("Queen | Made in Heaven | 1995 | 5 Estrelas ");
 
         ListView listView = (ListView) findViewById(R.id.listView_musicas);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns2);
         listView.setAdapter(adapter);
 
         Spinner s = (Spinner) findViewById(R.id.pesquisa);
@@ -67,9 +67,9 @@ public class MainActivity extends AppCompatActivity
                         String item = (String) listView.getItemAtPosition(position);
 
                         //apagar um item da posição escolhida
-                        albuns.remove(position);
+                        albuns2.remove(position);
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns2);
                         listView.setAdapter(adapter);
 
                         // User clicked OK button
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         if(termo.equals(""))
         {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns2);
             lv.setAdapter(adapter);
 
             Toast.makeText(MainActivity.this, "Mostrar todos os Álbuns.", Toast.LENGTH_SHORT).show();
@@ -121,9 +121,9 @@ public class MainActivity extends AppCompatActivity
 
 
             if (itemSeleccionado.equals("Todos")) {
-                for (int i = 0; i < albuns.size(); i++)
+                for (int i = 0; i < albuns2.size(); i++)
                 {
-                    String c = albuns.get(i);
+                    String c = albuns2.get(i);
 
                     boolean contem = c.contains(termo);
 
@@ -135,9 +135,9 @@ public class MainActivity extends AppCompatActivity
             }
             else if (itemSeleccionado.equals("Artista"))
             {
-                for (int i = 0; i < albuns.size(); i++)
+                for (int i = 0; i < albuns2.size(); i++)
                 {
-                    String c = albuns.get(i);
+                    String c = albuns2.get(i);
 
                     String[] s = c.split("\\|\\|\\|\\|");
                     String name = s[0];
@@ -152,9 +152,9 @@ public class MainActivity extends AppCompatActivity
             }
             else if (itemSeleccionado.equals("Álbum"))
             {
-                for (int i = 0; i < albuns.size(); i++)
+                for (int i = 0; i < albuns2.size(); i++)
                 {
-                    String c = albuns.get(i);
+                    String c = albuns2.get(i);
 
                     String[] s = c.split("\\|\\|\\|\\|");
                     String number = s[1];
@@ -169,9 +169,9 @@ public class MainActivity extends AppCompatActivity
             }
             else if (itemSeleccionado.equals("Ano"))
             {
-                for (int i = 0; i < albuns.size(); i++)
+                for (int i = 0; i < albuns2.size(); i++)
                 {
-                    String c = albuns.get(i);
+                    String c = albuns2.get(i);
 
                     String[] s = c.split("\\|\\|\\|\\|");
                     String number = s[2];
@@ -186,9 +186,9 @@ public class MainActivity extends AppCompatActivity
             }
             else if (itemSeleccionado.equals("Classificação"))
             {
-                for (int i = 0; i < albuns.size(); i++)
+                for (int i = 0; i < albuns2.size(); i++)
                 {
-                    String c = albuns.get(i);
+                    String c = albuns2.get(i);
 
                     String[] s = c.split("\\|\\|\\|\\|");
                     String number = s[3];
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity
             }
             else
             {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albuns2);
                 lv.setAdapter(adapter);
 
                 Toast.makeText(MainActivity.this, "Resultados não encontrados. Mostrar tudo.", Toast.LENGTH_SHORT).show();
@@ -260,9 +260,9 @@ public class MainActivity extends AppCompatActivity
                 } else{
                     String musicas = Artista + " | " + Album + " | " + Ano + " | " + Estrela + " Estrelas";
 
-                    albuns.add(musicas);
+                    albuns2.add(musicas);
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns2);
 
                     ListView listView = (ListView) findViewById(R.id.listView_musicas);
                     listView.setAdapter(adapter);
