@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MusicOn</string>
+    <string name="Album">Album</string>
+    <string name="Albuns">Albums</string>
+    <string name="Ano">Year</string>
+    <string name="Artista">Artist</string>
+    <string name="Estrelas">Stars</string>
+    <string name="Informações">Information</string>
+    <string name="Mostrar">Show</string>
+    <string name="Resultados">Results</string>
+    <string name="Todos">All</string>
+    <string name="todos">all</string>
+    <string name="tudo">all</string>
+</resources>

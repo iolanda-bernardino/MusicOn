@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MusicOn</string>
+    <string-array name="pesquisa">
+        <item>Todos</item>
+        <item>Artista</item>
+        <item>Álbum</item>
+        <item>Ano</item>
+        <item>Classificação</item>
+    </string-array>
+</resources>

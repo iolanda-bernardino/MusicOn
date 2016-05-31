@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">MusicOn</string>
+    <string-array name="pesquisa">
+        <item>Todos</item>
+        <item>Artista</item>
+        <item>Album</item>
+        <item>Ano</item>
+        <item>Classificação</item>
+    </string-array>
+    <string name="Todos">Todos</string>
+    <string name="Artista">Artista</string>
+    <string name="Ano">Ano</string>
+    <string name="Album">Álbum</string>
+    <string name="Estrelas">Estrelas</string>
+    <string name="informações">informações</string>
+    <string name="Mostrar">Mostrar</string>
+    <string name="todos">todos</string>
+    <string name="Albuns">Albuns</string>
+    <string name="Resultados">Resultados</string>
+    <string name="tudo">tudo</string>
+</resources>
