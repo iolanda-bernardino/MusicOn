@@ -75,9 +75,6 @@ public class MainActivity extends AppCompatActivity
 
                         ListView listView = (ListView) findViewById(R.id.listView_musicas);
 
-                        String item = (String) listView.getItemAtPosition(position);
-
-                        //apagar um item da posição escolhida
                         albuns.remove(position);
 
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, albuns);
@@ -112,7 +109,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-
 
         Toast.makeText(MainActivity.this, "A Guardar Dados", Toast.LENGTH_SHORT).show();
         // Guardar os contactos para as shared preferences
@@ -322,23 +318,22 @@ public class MainActivity extends AppCompatActivity
                 if (Artista.equals("") || Album.equals("") || Ano.equals("")) {
                     Toast.makeText(MainActivity.this, "Inserir informações", Toast.LENGTH_SHORT).show();
 
-                    String musicas = Artista + " | " + Album + " | " + Editora + " | " + Ano + " | " + Estrela + " Estrelas";
 
-                    albuns.add(musicas);
 
                 }else {
                     String musicas = Artista + " | " + Album + " | " + Editora + " | " + Ano + " | " + Estrela + " Estrelas";
+
+                    albuns.add(musicas);
 
                     SimpleAdapter adapter = createSimpleAdapter(albuns);
 
                     ListView listView = (ListView) findViewById(R.id.listView_musicas);
                     listView.setAdapter(adapter);
+                    Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
                 }
 
-
-                        Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+           }
+        });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
