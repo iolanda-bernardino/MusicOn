@@ -294,10 +294,8 @@ public class MainActivity extends AppCompatActivity
 
         builder.setView(inflater.inflate(R.layout.adicionar, null));
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int id)
-            {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
 
                 AlertDialog al = (AlertDialog) dialog;
 
@@ -307,11 +305,10 @@ public class MainActivity extends AppCompatActivity
                 EditText etAno = (EditText) al.findViewById(R.id.editText_Ano);
                 RatingBar rbEstrela = (RatingBar) al.findViewById(R.id.ratingBar);
 
-                rbEstrela.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener()
-                {
+                rbEstrela.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                        Toast.makeText(MainActivity.this, String.valueOf(rating),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, String.valueOf(rating), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -322,30 +319,36 @@ public class MainActivity extends AppCompatActivity
                 String Ano = etAno.getText().toString();
                 String Estrela = "" + (int) rbEstrela.getRating();
 
+                if (Artista.equals("") || Album.equals("") || Ano.equals("")) {
+                    Toast.makeText(MainActivity.this, "Inserir informações", Toast.LENGTH_SHORT).show();
 
-                String musicas = Artista + " | " + Album + " | " + Editora + " | " + Ano + " | " + Estrela + " Estrelas";
+                    String musicas = Artista + " | " + Album + " | " + Editora + " | " + Ano + " | " + Estrela + " Estrelas";
 
-                albuns.add(musicas);
+                    albuns.add(musicas);
 
-                SimpleAdapter adapter = createSimpleAdapter(albuns);
+                }else {
+                    String musicas = Artista + " | " + Album + " | " + Editora + " | " + Ano + " | " + Estrela + " Estrelas";
 
-                ListView listView = (ListView) findViewById(R.id.listView_musicas);
-                listView.setAdapter(adapter);
+                    SimpleAdapter adapter = createSimpleAdapter(albuns);
+
+                    ListView listView = (ListView) findViewById(R.id.listView_musicas);
+                    listView.setAdapter(adapter);
+                }
 
 
-                Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
 
-                Toast.makeText(MainActivity.this, "Não Adicionado Álbumn!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                        Toast.makeText(MainActivity.this, "Não Adicionado Álbum!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-        builder.setTitle("Novo Álbum");
+                builder.setTitle("Novo Álbum");
 
-        builder.setMessage("Introduzir Artista, Álbum, Ano e Classificação.");
+                builder.setMessage("Introduzir Artista, Álbum, Ano e Classificação.");
 
         AlertDialog dialog = builder.create();
         dialog.show();
