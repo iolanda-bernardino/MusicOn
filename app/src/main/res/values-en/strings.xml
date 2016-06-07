@@ -12,4 +12,28 @@
     <string name="Todos">All</string>
     <string name="todos">all</string>
     <string name="tudo">all</string>
+    <string name="Apagado">Deleted</string>
+    <string name="Opção">Option</string>
+    <string name="Cancelada">Canceled</string>
+    <string name="Guardar">Save</string>
+    <string name="Dados">Data</string>
+    <string name="Adicionado">Added</string>
+    <string name="Adicionado1">It was add a NEW Album!</string>
+    <string name="Inserir1">Insert Information</string>
+    <string name="Resultados1">Results not found. Show everything.</string>
+    <string name="Mostrar1">Show all Informations.</string>
+    <string name="Classificação">Rating</string>
+    <string name="Ano1">Year</string>
+    <string name="Editora">Editor</string>
+    <string name="Album1">Album</string>
+    <string name="Artista1">Artist</string>
+    <string name="Todos1">All</string>
+    <string name="Mostrar2">Show all Albuns.</string>
+    <string name="Guardar1">Saving information.</string>
+    <string name="Cancelar">Canceled Option</string>
+    <string name="Apagado1">Deleted</string>
+    <string name="Não1">Not added Album!</string>
+    <string name="Novo1">New Album.</string>
+    <string name="Introduzir">Insert Artist, Album, Year e Rating.</string>
+
 </resources>

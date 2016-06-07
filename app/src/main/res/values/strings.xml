@@ -7,4 +7,27 @@
         <item>Ano</item>
         <item>Classificação</item>
     </string-array>
+    <string name="Apagado">Apagado</string>
+    <string name="Opção">Opção</string>
+    <string name="Cancelada">Cancelada</string>
+    <string name="Guardar">Guardar</string>
+    <string name="Dados">Dados</string>
+    <string name="Adicionado">Adicionado</string>
+    <string name="Adicionado1">Foi Adicionado um novo Álbum</string>
+    <string name="Inserir1">Inseridas Informações</string>
+    <string name="Resultados1">Resultados não encontrados. Mostrar tudo.</string>
+    <string name="Mostrar1">Mostrar todas as informações.</string>
+    <string name="Classificação">Classificação</string>
+    <string name="Ano1">Ano</string>
+    <string name="Editora">Editora</string>
+    <string name="Album1">Álbum</string>
+    <string name="Artista1">Artista</string>
+    <string name="Todos1">Todos</string>
+    <string name="Mostrar2">Mostrar todos os Álbuns.</string>
+    <string name="Guardar1">A Guardar Dados</string>
+    <string name="Cancelar">Opção Cancelada</string>
+    <string name="Apagado1">Apagado</string>
+    <string name="Não1">Não Adicionado Álbum!</string>
+    <string name="Novo1">Novo Álbum</string>
+    <string name="Introduzir">Introduzir Artista, Álbum, Ano e Classificação.</string>
 </resources>

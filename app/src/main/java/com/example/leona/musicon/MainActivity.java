@@ -81,14 +81,14 @@ public class MainActivity extends AppCompatActivity
                         listView.setAdapter(adapter);
 
                         // User clicked OK button
-                        Toast.makeText(MainActivity.this, "Apagado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.Apagado1, Toast.LENGTH_SHORT).show();
 
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
-                        Toast.makeText(MainActivity.this, "Opção Cancelada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.Cancelar, Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
 
-        Toast.makeText(MainActivity.this, "A Guardar Dados", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, R.string.Guardar1, Toast.LENGTH_SHORT).show();
         // Guardar os contactos para as shared preferences
         SharedPreferences sp = getSharedPreferences("MusicOn", 0);
         SharedPreferences.Editor editor = sp.edit();
@@ -130,11 +130,11 @@ public class MainActivity extends AppCompatActivity
         {
             HashMap<String, String> hashMap = new HashMap<>();
             String[] split = c.split(" \\| ");
-            hashMap.put("Artista", split[0]);
-            hashMap.put("Álbum", split[1]);
-            hashMap.put("Editora", split[2]);
-            hashMap.put("Ano", split[3]);
-            hashMap.put("Classificação", split[4]);
+            hashMap.put(getString(R.string.Artista1), split[0]);
+            hashMap.put(getString(R.string.Album1), split[1]);
+            hashMap.put(getString(R.string.Editora), split[2]);
+            hashMap.put(getString(R.string.Ano1), split[3]);
+            hashMap.put(getString(R.string.Classificação), split[4]);
             simpleAdapterData.add(hashMap);
         }
         String[] from = {"Artista", "Álbum", "Editora", "Ano", "Classificação"};
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity
             SimpleAdapter adapter = createSimpleAdapter(albuns);
             lv.setAdapter(adapter);
 
-            Toast.makeText(MainActivity.this, "Mostrar todos os Álbuns.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.Mostrar2, Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity
             ArrayList<String> resultados = new ArrayList<>();
 
 
-            if (itemSeleccionado.equals("Todos")) {
+            if (itemSeleccionado.equals(getString(R.string.Todos1))) {
                 for (int i = 0; i < albuns.size(); i++)
                 {
                     String c = albuns.get(i);
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }
-            else if (itemSeleccionado.equals("Artista"))
+            else if (itemSeleccionado.equals(getString(R.string.Artista1)))
             {
                 for (int i = 0; i < albuns.size(); i++)
                 {
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }
-            else if (itemSeleccionado.equals("Álbum"))
+            else if (itemSeleccionado.equals(getString(R.string.Album1)))
             {
                 for (int i = 0; i < albuns.size(); i++)
                 {
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }
-            else if (itemSeleccionado.equals("Editora"))
+            else if (itemSeleccionado.equals(getString(R.string.Editora)))
             {
                 for (int i = 0; i < albuns.size(); i++)
                 {
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }
-            else if (itemSeleccionado.equals("Ano"))
+            else if (itemSeleccionado.equals(getString(R.string.Ano1)))
             {
                 for (int i = 0; i < albuns.size(); i++)
                 {
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }
-            else if (itemSeleccionado.equals("Classificação"))
+            else if (itemSeleccionado.equals(getString(R.string.Classificação)))
             {
                 for (int i = 0; i < albuns.size(); i++)
                 {
@@ -270,14 +270,14 @@ public class MainActivity extends AppCompatActivity
             {
                 SimpleAdapter adapter = createSimpleAdapter(resultados);
                 lv.setAdapter(adapter);
-                Toast.makeText(MainActivity.this, "Mostrar todas as informações.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.Mostrar1, Toast.LENGTH_SHORT).show();
             }
             else
             {
                 SimpleAdapter adapter = createSimpleAdapter(albuns);
                 lv.setAdapter(adapter);
 
-                Toast.makeText(MainActivity.this, "Resultados não encontrados. Mostrar tudo.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.Resultados1, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity
                 String Estrela = "" + (int) rbEstrela.getRating();
 
                 if (Artista.equals("") || Album.equals("") || Ano.equals("")) {
-                    Toast.makeText(MainActivity.this, "Inserir informações", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.Inserir1, Toast.LENGTH_SHORT).show();
 
 
 
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity
 
                     ListView listView = (ListView) findViewById(R.id.listView_musicas);
                     listView.setAdapter(adapter);
-                    Toast.makeText(MainActivity.this, "Foi Adicionado Novo Álbum!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.Adicionado1, Toast.LENGTH_SHORT).show();
                 }
 
            }
@@ -337,13 +337,13 @@ public class MainActivity extends AppCompatActivity
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Toast.makeText(MainActivity.this, "Não Adicionado Álbum!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.Não1, Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                builder.setTitle("Novo Álbum");
+                builder.setTitle(R.string.Novo1);
 
-                builder.setMessage("Introduzir Artista, Álbum, Ano e Classificação.");
+                builder.setMessage(R.string.Introduzir);
 
         AlertDialog dialog = builder.create();
         dialog.show();
