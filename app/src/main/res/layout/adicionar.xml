@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText_Album"
-        android:hint="Álbum"
-        android:digits="0,1,2,3,4,5,6,7,8,9,',qwertzuiopasdfghjklyxcvbnm"/>
+        android:hint="Álbum"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -29,8 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText_Editora"
-        android:hint="Editora"
-        android:digits="0,1,2,3,4,5,6,7,8,9,',qwertzuiopasdfghjklyxcvbnm"/>
+        android:hint="Editora"/>
 
     <RatingBar
         android:layout_width="wrap_content"
