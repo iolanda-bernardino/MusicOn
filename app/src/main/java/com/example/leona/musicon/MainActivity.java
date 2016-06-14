@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity
         int[] to = {R.id.textView_Album, R.id.textView_Artista, R.id.textView_Editora, R.id.textView_Ano, R.id.textView_Classificacao};
         SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), simpleAdapterData, R.layout.listview_albuns, from, to);
         return simpleAdapter;
+
     }
 
     public void onClick_search(View view)
@@ -301,6 +302,7 @@ public class MainActivity extends AppCompatActivity
                 EditText etAno = (EditText) al.findViewById(R.id.editText_Ano);
                 RatingBar rbEstrela = (RatingBar) al.findViewById(R.id.ratingBar);
 
+
                 rbEstrela.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -315,35 +317,63 @@ public class MainActivity extends AppCompatActivity
                 String Ano = etAno.getText().toString();
                 String Estrela = "" + (int) rbEstrela.getRating();
 
+
+
                 if (Artista.equals("") || Album.equals("") || Ano.equals("")) {
+
                     Toast.makeText(MainActivity.this, R.string.Inserir1, Toast.LENGTH_SHORT).show();
 
 
 
                 }else {
-                    String musicas = Artista + " | " + Album + " | " + Editora + " | " + Ano + " | " + Estrela + " Estrelas";
+
+                    List<HashMap<String, String>> simpleAdapterData = new ArrayList<HashMap<String, String>>();
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+
+
+
+                    hashMap.put("Artista",  Artista);
+                    hashMap.put("Álbum",  Album);
+                    hashMap.put("Editora",  Editora);
+                    hashMap.put("Ano",  Ano);
+                    hashMap.put("Classificação",  Estrela);
+                    simpleAdapterData.add(hashMap);
+
+                    String[] from = {"Artista", "Álbum", "Editora", "Ano", "Classificação"};
+                    int[] to = {R.id.textView_Album, R.id.textView_Artista, R.id.textView_Editora, R.id.textView_Ano, R.id.textView_Classificacao};
+                    SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), simpleAdapterData, R.layout.listview_albuns, from, to);
+
+                    ListView listView = (ListView) findViewById(R.id.listView_musicas);
+                    listView.setAdapter(simpleAdapter);
+
+
+
+
+
+                   /* String musicas = Artista + " | " + Album + " | " + Editora + " | " + Ano + " | " + Estrela + " Estrelas";
 
                     albuns.add(musicas);
 
                     SimpleAdapter adapter = createSimpleAdapter(albuns);
 
                     ListView listView = (ListView) findViewById(R.id.listView_musicas);
-                    listView.setAdapter(adapter);
+                    listView.setAdapter(adapter);*/
                     Toast.makeText(MainActivity.this, R.string.Adicionado1, Toast.LENGTH_SHORT).show();
                 }
 
-           }
+            }
         });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
 
-                        Toast.makeText(MainActivity.this, R.string.Não1, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Toast.makeText(MainActivity.this, R.string.Não1, Toast.LENGTH_SHORT).show();
+            }
+        });
 
-                builder.setTitle(R.string.Novo1);
+        builder.setTitle(R.string.Novo1);
 
-                builder.setMessage(R.string.Introduzir);
+        builder.setMessage(R.string.Introduzir);
 
         AlertDialog dialog = builder.create();
         dialog.show();
